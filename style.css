@@ -1,0 +1,25 @@
+.default{
+	margin : 0px 10px 0px 10px;
+	padding : 0px 10px 0px 10px !important ;
+}
+body{
+	background-image: url("spirationDark.png");
+}
+#aboutUs{
+	margin-top: 5em;
+}
+.cardLayout{
+	background-color:  #4D4D4D;
+	height: auto;
+	margin-bottom: 2em;
+}
+.titleBtn{
+	height: 60px;
+	margin-top: 5px;
+	width: 100%;
+	color: white;
+	border : solid 2px white;
+}
+.content{
+	color: white;
+}

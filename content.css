@@ -1,0 +1,26 @@
+h2{
+	text-decoration: underline;
+	margin-left: 5%;
+	text-transform: uppercase;
+	font-weight: bold;
+	margin-top: 4px;
+}
+p{
+	border : solid 0.5px black;
+	padding: 4px;
+	margin-left: 5%;
+	width: auto;
+	margin-right: 3%;
+	padding-left: auto;
+	font-size: 30px;
+}
+i{
+	margin-left: 5%;
+	font-size: 30px;
+}
+
+
+
+body{
+	background-image: url("contentImage.jpg");
+}

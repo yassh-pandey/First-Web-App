@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Remove Post</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+	<!-- Firebase CDN -->
+	<script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-firestore.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.5.7/firebase-auth.js"></script>
+	<link rel="stylesheet" type="text/css" href="widgets.css">
+
+</head>
+<body style="background-image: url(delImg.jpg);">
+
+		<nav class="navbar bg-dark navbar-dark navbar-expand-lg">
+
+    <a class="navbar-brand" href="index.html">
+      <img src="image.png" width="40" height="40">
+      Discussion Forum 
+    </a>
+    <button data-toggle="collapse" data-target="#items" class="navbar-toggler">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="items">
+      <div class="navbar-nav justify-content-end">
+      <a class="nav-item nav-link active " href="firebaseLogIn.html" id="logout">Logout</a>
+      <a class="nav-item nav-link" href="content.html" id="dashBoard">Dashboard</a>
+      <a class="nav-item nav-link " href="addPost.html">Add Post</a>
+      <a class="nav-item nav-link " href="removePost.html">Remove Post</a>
+      </div>
+    </div>
+
+  	</nav>
+	<div class="xyz">
+	  <div class="form-group h3">
+	    <label for="email">Enter the email address you are logged in with</label>
+	    <input type="email" class="form-control" id="email" placeholder="Enter email">
+	  </div>
+	  <button id="showPosts" class="btn btn-primary">Display Posts</button>
+
+	</div>
+<div id="empty" class="h3" >
+	<ol id="list" style="margin-left: 23%; margin-top: 3%;" class="bg-primary text-light">
+	</ol>
+		<div class="xyz" id="c_form">
+	  <div class="form-group">
+	    <label for="delIndex">Enter the space seperated array indices of the posts that you wish to delete</label>
+	    <input type="email" class="form-control" id="delIndex" placeholder="Remember that array indices start from zero">
+	  </div>
+	  <button id="delStuff" class="btn btn-primary">Delete Posts</button>
+
+	</div>
+</div>
+
+	<div class="alert alert-danger" id="unsuccessful">
+		<h4 class="alert-heading">Oops !</h4>
+		<p>It seems like the email address that you have entered is incorrect</p>
+		<hr>
+		<p class="mb-0">Refresh the page to enter the correct email address again.</p>
+	</div>
+	<div class="alert alert-success" id="removed">
+		<h4 class="alert-heading">Operation successful</h4>
+		<p>The posts mentioned by you have been successfully removed from our Firestore Cloud Database</p>
+		<hr>
+	</div>
+
+	<script type="text/javascript">
+	var config = {
+	    apiKey: "AIzaSyDgJGiF15a5lZjSPUZTOTIyFgKK7tK801g",
+	    authDomain: "itt-project-3f06f.firebaseapp.com",
+	    databaseURL: "https://itt-project-3f06f.firebaseio.com",
+	    projectId: "itt-project-3f06f",
+	    storageBucket: "itt-project-3f06f.appspot.com",
+	    messagingSenderId: "67372358667"
+	};
+
+	firebase.initializeApp(config);
+
+	firebase.auth().onAuthStateChanged(function(user) {
+	  if (user) {
+	    console.log("User triggered onAuthStateChanged() : "+ user.email);
+	  } else {
+	    console.log("There is no current user.");
+	  }
+	});
+	
+	let db = firebase.firestore();
+
+	db.settings({
+		timestampsInSnapshots: true
+	});
+	
+	let showPosts = document.querySelector("#showPosts");
+	let email = document.querySelector("#email");
+	let empty = document.querySelector("#empty");
+	let ele = document.querySelector("#list");
+	let xyz = document.querySelector(".xyz");
+	let unsuccessful = document.querySelector("#unsuccessful");
+	let delIndex = document.querySelector("#delIndex");
+	let delStuff = document.querySelector("#delStuff");
+	let removed = document.querySelector("#removed");
+	unsuccessful.style.display = "none";
+	removed.style.display = "none";
+	let del = [];
+	empty.style.display = "none";
+	showPosts.addEventListener('click', (event)=>{
+	db.collection("Posts").where("email", "==", email.value).get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+        
+        console.log(doc.id, " => ", doc.data());
+        del.push(doc.id);
+        let s = document.createElement("li");
+        s.innerHTML = doc.data().title ;
+        list.appendChild(s);
+        xyz.style.display = "none";
+        empty.style.display = "block";
+        console.log(del);
+
+    });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+
+    setTimeout(alertFn, 2000);
+
+    
+
+	});
+
+	delStuff.addEventListener('click', (event)=>{
+		let x = delIndex.value.split(" ");
+		for(let i = 0 ; i <  x.length; i++){
+			db.collection("Posts").doc(del[x[i]]).delete().then(()=>{
+				console.log("Content successfully deleted.");
+				empty.style.display = "none";
+				removed.style.display = "block";
+			}).catch((error)=>{
+				console.log("Error "+ error);
+			});
+		}
+	});
+
+	function alertFn(){
+		if(del.length === 0){
+    	xyz.style.display = "none";
+    	unsuccessful.style.display = "block";
+    }
+	}
+
+
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign Up</title>
+
+	<script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-firestore.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyDgJGiF15a5lZjSPUZTOTIyFgKK7tK801g",
+	    authDomain: "itt-project-3f06f.firebaseapp.com",
+	    databaseURL: "https://itt-project-3f06f.firebaseio.com",
+	    projectId: "itt-project-3f06f",
+	    storageBucket: "itt-project-3f06f.appspot.com",
+	    messagingSenderId: "67372358667"
+	  };
+	  firebase.initializeApp(config);
+	</script>
+</head>
+<body>
+
+	<h3>User Name</h3>
+	<input type="text" id="id">
+	<h3>Password</h3>
+	<input type="text" id="password">
+	<br>
+	<br>
+	<button id="signUp">Sign Up</button>
+
+
+	<script type="text/javascript">
+		let db = firebase.firestore();
+		db.settings({
+		  timestampsInSnapshots: true
+		});
+
+
+		let sample = db.collection("user").doc("0eVMq7tqsQ4BNb7sctDY");
+		sample.get().then((doc)=>{
+			if(doc){
+				console.log(doc.data());
+			}
+			else{
+				console.log("Document does not exist.");
+			}
+		}).catch((error)=>{
+			console.log("Some error occured "+ error);
+		});
+
+
+		let id = document.querySelector("#id");
+		let password = document.querySelector("#password");
+		let signUp = document.querySelector("#signUp");
+		signUp.addEventListener("click", (event)=>{
+			db.collection("user").doc(id.value.toString()).set({
+				userId: id.value,
+				userPassword: password.value
+			}).then(()=>{
+				console.log("Data successfully added to the firebase firestore document")
+			}).catch((error)=>{
+				console.error("Error in execution "+ error);
+			});
+		});
+	</script>
+</body>
+</html>
