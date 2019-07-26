@@ -10,55 +10,55 @@ have improved a lot since then. Still i consider it a good startpoint.
 
 **1) Home page**
 
-  ![](image1.png)
+  ![](assets/image1.png)
 
-  ![](image2.png)
+  ![](assets/image2.png)
 
 **2) Responsive when screen size is reduced 
 (see the nav bar)**
 
-  ![](image3.png)
+  ![](assets/image3.png)
 
 **3) Trending section that uses an iframe**
 
-  ![](image3.1.png)
+  ![](assets/image3.1.png)
 
 
 **4) Sign Up page**
 
-  ![](image4.png)
+  ![](assets/image4.png)
 
 
 **5) Sign Up success**
 
-  ![](image5.png)
+  ![](assets/image5.png)
 
 **6) Dashboard with posts**
 
-  ![](image6.jpg)
+  ![](assets/image6.jpg)
 
 **7) Create a new post**
 
-  ![](image7_0.png)
+  ![](assets/image7_0.png)
   
 **8) Post successfully created**
 
-  ![](image7_1.png)
+  ![](assets/image7_1.png)
 
 **9) Dashboard Updated**
 
-  ![](image8.jpg)
+  ![](assets/image8.jpg)
 
 **10) Remove post**
 
-  ![](image9.jpg)
+  ![](assets/image9.jpg)
 
-  ![](image10.jpg)
+  ![](assets/image10.jpg)
 
-  ![](image11.png)
+  ![](assets/image11.png)
 
 **11) Firebase config**
 
-  ![](image13.png)
+  ![](assets/image13.png)
 
-  ![](image14.png)
+  ![](assets/image14.png)
